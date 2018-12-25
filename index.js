@@ -14,19 +14,20 @@ MongoClient.connect(dburl, (err, db) => {
   // API routes
   //
   //
-  app.get('/api/mentors/',(req,res)=>{
+  app.get('/api/orders/',(req,res)=>{
     var obj=[];
-    db.collection('mentors').find({}, (err, result) => {
+    db.collection('orders').find({}, (err, result) => {
       if (err) {
         res.send({ 'error': 'An error has occurred' });
       } else {
 
         result.each(function(err, docs){
             console.log("item", docs);
-            obj.push(docs);
+
             if (docs == null){
                 res.send(obj);
             }
+            obj.push(docs);
 
         });
 
@@ -340,7 +341,7 @@ MongoClient.connect(dburl, (err, db) => {
 
   });
 
-  
+
   app.use('/',express.static(path.resolve(__dirname, 'build')));
 
   // Always return the main index.html, so react-router render the route in the client
