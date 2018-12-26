@@ -47,53 +47,6 @@ MongoClient.connect(dburl, (err, db) => {
       }
     });
   })
-  app.get('/api/round/:roundid',(req,res)=>{
-    var obj=[];
-    console.log(req.params.roundid)
-    db.collection('rounds').find(ObjectId(req.params.roundid), (err, result) => {
-      if (err) {
-        res.send({ 'error': 'An error has occurred' });
-      } else {
-
-        result.each(function(err, docs){
-            console.log("item", docs);
-
-            if (docs == null){
-                res.send(obj);
-            }
-            obj.push(docs);
-
-        });
-
-      }
-    });
-  })
-
-  app.post('/api/users', (req, res) => {
-    const user = req.body;
-
-    db.collection('users').findOne({id: req.body.id}, (err, result) => {
-      if (err) {
-
-      } else {
-        if (result==null){
-          db.collection('users').insert(user, (err, result) => {
-            if (err) {
-              res.send({ 'error': 'insert error' });
-            } else {
-              res.send(result.ops[0]);
-              console.log(result);
-            }
-          });
-
-        }
-        else{
-          res.send({ 'error': 'user exists' });
-        }
-
-      }
-    });
-  });
 
 
   app.post('/api/login', (req, res) => {
