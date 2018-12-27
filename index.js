@@ -5,11 +5,12 @@ const MongoClient    = require('mongodb').MongoClient;
 const bodyParser     = require('body-parser');
 const ObjectId = require('mongodb').ObjectId;
 const dburl             = "mongodb://djurus:djurus710@ds117423.mlab.com:17423/heroku_x0f6x9g5"
-
+var cors = require('cors')
 
 MongoClient.connect(dburl, (err, db) => {
   var app = express();
   app.use(bodyParser.json());
+  app.use(cors())
 
   // API routes
   //
