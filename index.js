@@ -48,6 +48,32 @@ MongoClient.connect(dburl, (err, db) => {
       }
     });
   })
+  app.post('/api/new_opening_stock/',(req,res)=>{
+    var query = req.body
+    console.log(req.body);
+
+    db.collection('openingStock').insert(query, (err, result) => {
+      if (err) {
+        res.send({ 'error': 'An error has occurred' });
+      } else {
+        res.send(result.ops[0]);
+        console.log(result);
+      }
+    });
+  })
+  app.post('/api/new_closing_stock/',(req,res)=>{
+    var query = req.body
+    console.log(req.body);
+
+    db.collection('closingStock').insert(query, (err, result) => {
+      if (err) {
+        res.send({ 'error': 'An error has occurred' });
+      } else {
+        res.send(result.ops[0]);
+        console.log(result);
+      }
+    });
+  })
 
 
   app.post('/api/login', (req, res) => {
