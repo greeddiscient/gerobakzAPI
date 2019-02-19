@@ -48,6 +48,26 @@ MongoClient.connect(dburl, (err, db) => {
       }
     });
   })
+  app.get('/api/opening_stock/',(req,res)=>{
+    var obj=[];
+    db.collection('openingStock').find({}, (err, result) => {
+      if (err) {
+        res.send({ 'error': 'An error has occurred' });
+      } else {
+
+        result.each(function(err, docs){
+            console.log("item", docs);
+
+            if (docs == null){
+                res.send(obj);
+            }
+            obj.push(docs);
+
+        });
+
+      }
+    });
+  })
   app.post('/api/new_opening_stock/',(req,res)=>{
     var query = req.body
     console.log(req.body);
@@ -58,6 +78,26 @@ MongoClient.connect(dburl, (err, db) => {
       } else {
         res.send(result.ops[0]);
         console.log(result);
+      }
+    });
+  })
+  app.get('/api/closing_stock/',(req,res)=>{
+    var obj=[];
+    db.collection('closingStock').find({}, (err, result) => {
+      if (err) {
+        res.send({ 'error': 'An error has occurred' });
+      } else {
+
+        result.each(function(err, docs){
+            console.log("item", docs);
+
+            if (docs == null){
+                res.send(obj);
+            }
+            obj.push(docs);
+
+        });
+
       }
     });
   })
